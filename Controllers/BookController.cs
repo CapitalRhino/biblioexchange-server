@@ -48,14 +48,14 @@ namespace AppBackEnd.Controllers
         }
 
         [HttpPost(),Authorize(Roles = UserRoles.User)]
-        public async Task<int> Post(Book book)
+        public async Task<ActionResult<int>> Post(Book book)
         {
             try
             {
                 Context.Books.Add(book);
                 if (Context.SaveChanges() == 1)
                 {
-                    var newBook = Context.Books.Where(x=>x==book)[0];
+                    var newBook = Context.Books.Where(x=>x==book).First();
                     return Ok(newBook.Id);
                 }
                 else return BadRequest("Save error");

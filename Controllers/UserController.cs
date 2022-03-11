@@ -22,7 +22,7 @@ namespace AppBackEnd.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
         private const int RefreshTokenActiveHours = 2;
-        private const int AccessTokenActive=10;
+        private const int AccessTokenActive=2;
 
         public UserController(AppDbContext context,
         RoleManager<IdentityRole> roleManager,
@@ -171,7 +171,7 @@ namespace AppBackEnd.Controllers
         {
 
             string refresh = Request.Cookies["Token"];
-            if (refresh == null) return BadRequest("Not cookie found");
+            if (refresh == null) return Ok();
             var found = Context.RefreshTokens.FirstOrDefault(x => x.Value == refresh);
             if (found == null) return BadRequest("Invalid refresh token");
             if (found.IsActive) return BadRequest("Expired or revoke token");
