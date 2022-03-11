@@ -48,7 +48,7 @@ namespace AppBackEnd.Controllers
         }
 
         [HttpPost(),Authorize(Roles = UserRoles.User)]
-        public async Task<int> Post(BookDtoAdd book)
+        public async Task<int> Post(Book book)
         {
             try
             {
