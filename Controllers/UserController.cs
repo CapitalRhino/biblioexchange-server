@@ -93,6 +93,7 @@ namespace AppBackEnd.Controllers
             string jwt = new JwtSecurityTokenHandler().WriteToken(token);
             Token jwtToken = new Token();
             jwtToken.AccessToken = jwt;
+            jwtToken.Username = user.UserName;
             jwtToken.Roles = userRoles;
             return jwtToken;
         }
