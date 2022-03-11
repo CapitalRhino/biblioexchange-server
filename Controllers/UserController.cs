@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using AppBackEnd.Data;
 using AppBackEnd.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -79,7 +80,7 @@ namespace AppBackEnd.Controllers
             };
             foreach (var userRole in userRoles)
             {
-                claims.Add(new Claim("Roles", userRole));
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
             }
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 _config.GetSection("TokenSettings").Value));
@@ -179,7 +180,7 @@ namespace AppBackEnd.Controllers
             return Ok();
         }
         [HttpPut]
-        [Route("Edit/Email")]
+        [Route("Edit/Email"), Authorize(Roles = UserRoles.User)]
         public async Task<ActionResult<BiblioUser>> EditEmail(string email){
             string tokenSplit = Request.Headers["Authorization"].FirstOrDefault().Split('.')[1];
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(tokenSplit));
@@ -193,7 +194,7 @@ namespace AppBackEnd.Controllers
             else return BadRequest("Save error");
         }
         [HttpPut]
-        [Route("Edit/Phone")]
+        [Route("Edit/Phone"), Authorize(Roles = UserRoles.User)]
         public async Task<ActionResult<BiblioUser>> EditPhone(string phone){
             string tokenSplit = Request.Headers["Authorization"].FirstOrDefault().Split('.')[1];
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(tokenSplit));
