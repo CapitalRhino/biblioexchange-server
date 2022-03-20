@@ -184,6 +184,7 @@ namespace AppBackEnd.Controllers
         [Route("Edit/Email"), Authorize(Roles = UserRoles.User)]
         public async Task<ActionResult<BiblioUser>> EditEmail(string email){
             string tokenSplit = Request.Headers["Authorization"].FirstOrDefault().Split('.')[1];
+            System.Console.WriteLine(tokenSplit);
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(tokenSplit));
             var obj = JsonSerializer.Deserialize<AuthToken>(json);
             var user = Context.Users.FirstOrDefault(x => x.UserName == obj.Username);
@@ -197,7 +198,9 @@ namespace AppBackEnd.Controllers
         [HttpPut]
         [Route("Edit/Phone"), Authorize(Roles = UserRoles.User)]
         public async Task<ActionResult<BiblioUser>> EditPhone(string phone){
+
             string tokenSplit = Request.Headers["Authorization"].FirstOrDefault().Split('.')[1];
+            System.Console.WriteLine(tokenSplit);
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(tokenSplit));
             var obj = JsonSerializer.Deserialize<AuthToken>(json);
             var user = Context.Users.FirstOrDefault(x => x.UserName == obj.Username);
