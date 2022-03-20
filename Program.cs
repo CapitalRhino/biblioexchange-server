@@ -18,7 +18,7 @@ builder.Services.AddCors(options=>
             builders.AllowAnyMethod().AllowAnyHeader().AllowCredentials()
             // .AllowAnyOrigin();
             .WithOrigins(
-            "http://localhost:3000","https://localhost:3000", "http://192.168.65.48:3000");
+            "http://localhost:3000","https://localhost:3000", "http://192.168.65.48:3000","http://biblioexchange.xyz");
         }
 ));
 
