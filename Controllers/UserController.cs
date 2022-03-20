@@ -47,7 +47,7 @@ namespace AppBackEnd.Controllers
             Response.Cookies.Append(
                 "Token",
                 refreshToken,
-                new CookieOptions { Expires = DateTime.Now.AddHours(RefreshTokenActiveHours), HttpOnly = true, Secure = true ,SameSite =SameSiteMode.Lax}
+                new CookieOptions { Expires = DateTime.Now.AddHours(RefreshTokenActiveHours), HttpOnly = true, Secure = true ,SameSite =SameSiteMode.None}
             );
             return Ok(token);
         }
@@ -160,7 +160,7 @@ namespace AppBackEnd.Controllers
                      Expires = DateTime.Now.AddHours(RefreshTokenActiveHours),
                       HttpOnly = true ,
                       Secure = true,
-                      SameSite =SameSiteMode.Lax
+                      SameSite =SameSiteMode.None
                       }
             );
             return Ok(token);
